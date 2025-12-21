@@ -4,6 +4,8 @@ from opendbc.car.lateral import AngleSteeringLimits, ISO_LATERAL_ACCEL
 from opendbc.car import ACCELERATION_DUE_TO_GRAVITY, Bus, CarSpecs, DbcDict, PlatformConfig, Platforms, structs
 from opendbc.car.docs_definitions import CarHarness, CarDocs, CarParts
 
+from opendbc.car.fw_query_definitions import FwQueryConfig, Request, StdQueries
+
 GEAR_MAP = {
   0: structs.CarState.GearShifter.unknown,
   1: structs.CarState.GearShifter.park,
@@ -41,5 +43,13 @@ class CAR(Platforms):
     CarSpecs(mass=2710., wheelbase=3.26, steerRatio=15.2),
   )
 
+FW_QUERY_CONFIG = FwQueryConfig(
+  requests=[
+    Request(
+      [StdQueries.UDS_VERSION_REQUEST],
+      [StdQueries.UDS_VERSION_RESPONSE],
+      bus=0,
+    )],
+)
 
 DBC = CAR.create_dbc_map()

@@ -3,8 +3,10 @@ from dataclasses import dataclass, field
 from opendbc.car.lateral import AngleSteeringLimits, ISO_LATERAL_ACCEL
 from opendbc.car import ACCELERATION_DUE_TO_GRAVITY, Bus, CarSpecs, DbcDict, PlatformConfig, Platforms, structs
 from opendbc.car.docs_definitions import CarHarness, CarDocs, CarParts
-
+from opendbc.car.structs import CarParams
 from opendbc.car.fw_query_definitions import FwQueryConfig, Request, StdQueries
+
+Ecu = CarParams.Ecu
 
 GEAR_MAP = {
   0: structs.CarState.GearShifter.unknown,
@@ -44,10 +46,29 @@ class CAR(Platforms):
 FW_QUERY_CONFIG = FwQueryConfig(
   requests=[
     Request(
-      [StdQueries.UDS_VERSION_REQUEST],
-      [StdQueries.UDS_VERSION_RESPONSE],
+      [StdQueries.MANUFACTURER_SOFTWARE_VERSION_REQUEST],
+      [StdQueries.MANUFACTURER_SOFTWARE_VERSION_RESPONSE],
       bus=0,
-    )],
+      logging=True,
+    ),
+    Request(
+      [StdQueries.TESTER_PRESENT_REQUEST, StdQueries.UDS_VERSION_REQUEST],
+      [StdQueries.TESTER_PRESENT_RESPONSE, StdQueries.UDS_VERSION_RESPONSE],
+      bus=0,
+    ),
+    Request(
+      [StdQueries.TESTER_PRESENT_REQUEST, StdQueries.SUPPLIER_SOFTWARE_VERSION_REQUEST],
+      [StdQueries.TESTER_PRESENT_RESPONSE, StdQueries.SUPPLIER_SOFTWARE_VERSION_RESPONSE],
+      bus=0,
+      logging=True,
+    ),
+    Request(
+      [StdQueries.TESTER_PRESENT_REQUEST, StdQueries.MANUFACTURER_ECU_HARDWARE_NUMBER_REQUEST],
+      [StdQueries.TESTER_PRESENT_RESPONSE, StdQueries.MANUFACTURER_ECU_HARDWARE_NUMBER_RESPONSE],
+      bus=0,
+      logging=True,
+    ),
+  ],
 )
 
 DBC = CAR.create_dbc_map()

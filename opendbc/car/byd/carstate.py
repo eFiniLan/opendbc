@@ -19,12 +19,6 @@ class CarState(CarStateBase):
 
     ret = structs.CarState()
 
-    # * `cruiseState`
-    # rick - PCM?
-    ret.cruiseState.available = cp_cam.vl["ACC_HUD_ADAS"]["ACC_ON2"]
-    ret.cruiseState.speed = cp_cam.vl["ACC_HUD_ADAS"]["SET_SPEED"]
-    ret.cruiseState.enabled = cp_cam.vl["ACC_HUD_ADAS"]["CRUISE_STATE"] == 3
-
     # * `doorOpen`
     ret.doorOpen = any([cp.vl["METER_CLUSTER"]['FRONT_LEFT_DOOR'],
                        cp.vl["METER_CLUSTER"]['FRONT_RIGHT_DOOR'],
@@ -36,8 +30,7 @@ class CarState(CarStateBase):
     ret.espDisabled = False
 
     # * `gasPressed`
-    ret.gas = cp.vl["PEDAL"]['AcceleratorPedal']
-    ret.gasPressed = ret.gas >= 0.01
+    ret.gasPressed = cp.vl["PEDAL"]['AcceleratorPedal'] >= 0.01
 
     ret.brake = cp.vl["PEDAL"]['BrakePedal']
     ret.brakePressed = ret.brake > 0.01
@@ -61,8 +54,8 @@ class CarState(CarStateBase):
     # @todo
     ret.steerFaultTemporary = False
 
-    # * `wheelSpeeds.[fl|fr|rl|rr]`
-    ret.wheelSpeeds = self.parse_wheel_speeds(
+    # vEgo, vEgoRaw
+    self.parse_wheel_speeds(
       ret,
       cp.vl["WHEEL_SPEED"]['WHEELSPEED_FL'],
       cp.vl["WHEEL_SPEED"]['WHEELSPEED_FR'],
@@ -74,6 +67,10 @@ class CarState(CarStateBase):
 
     # PCM signals
     if not self.CP.openpilotLongitudinalControl:
+      ret.cruiseState.available = cp_cam.vl["ACC_HUD_ADAS"]["ACC_ON2"] == 1
+      ret.cruiseState.speed = cp_cam.vl["ACC_HUD_ADAS"]["SET_SPEED"]
+      ret.cruiseState.enabled = cp_cam.vl["ACC_HUD_ADAS"]["CRUISE_STATE"] == 3
+
       # rick
       # seen this when ACC enabled
       btn_set = cp.vl["PCM_BUTTONS"]["SET_BTN"]

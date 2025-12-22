@@ -18,11 +18,11 @@ AVERAGE_ROAD_ROLL = 0.06  # ~3.4 degrees, 6% superelevation. higher actual roll 
 
 class CarControllerParams:
   STEER_STEP = 2  # Angle command is sent at 50 Hz
+  # PSA values for now
   ANGLE_LIMITS: AngleSteeringLimits = AngleSteeringLimits(
-    # EPAS faults above this angle
-    50,  # deg
-    ([], []),
-    ([], []),
+    390, # deg
+    ([0., 5., 25.], [2.5, 1.5, .2]),
+    ([0., 5., 25.], [5., 2., .3]),
   )
 
 
@@ -38,7 +38,7 @@ class BydDMOPlatformConfig(PlatformConfig):
 
 
 class CAR(Platforms):
-  SHARK_6_PHEV = BydDMOPlatformConfig(
+  BYD_SHARK_6_PHEV = BydDMOPlatformConfig(
     [BydCarDocs("BYD Shark 6 PHEV 2025")],
     CarSpecs(mass=2710., wheelbase=3.26, steerRatio=15.2),
   )

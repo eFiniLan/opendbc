@@ -17,12 +17,10 @@ GEAR_MAP = {
 AVERAGE_ROAD_ROLL = 0.06  # ~3.4 degrees, 6% superelevation. higher actual roll lowers lateral acceleration
 
 class CarControllerParams:
-  STEER_STEP = 2  # Angle command is sent at 50 Hz
-  # PSA values for now
   ANGLE_LIMITS: AngleSteeringLimits = AngleSteeringLimits(
-    390, # deg
-    ([0., 5., 25.], [2.5, 1.5, .2]),
-    ([0., 5., 25.], [5., 2., .3]),
+    220, # deg ECU_FAULT_MAX_ANGLES([0., 1., 8.], [360, 290, 220])
+    ([0., 5., 15.], [4., 3., 2.]),
+    ([0., 5., 15.], [6., 4., 3.]),
   )
 
 

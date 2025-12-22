@@ -33,12 +33,12 @@ class BydCarDocs(CarDocs):
 
 
 @dataclass
-class BydDMOSuperHybridPlatformConfig(PlatformConfig):
-  dbc_dict: DbcDict = field(default_factory=lambda: {Bus.pt: 'byd_general_pt'})
+class BydDMOPlatformConfig(PlatformConfig):
+  dbc_dict: DbcDict = field(default_factory=lambda: {Bus.pt: 'byd_dmo_platform'})
 
 
 class CAR(Platforms):
-  SHARK_6_PHEV = BydDMOSuperHybridPlatformConfig(
+  SHARK_6_PHEV = BydDMOPlatformConfig(
     [BydCarDocs("BYD Shark 6 PHEV 2025")],
     CarSpecs(mass=2710., wheelbase=3.26, steerRatio=15.2),
   )

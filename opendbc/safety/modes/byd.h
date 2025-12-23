@@ -51,7 +51,7 @@ static void byd_rx_hook(const CANPacket_t *msg) {
       uint32_t speed_rr = (val_hi >> 8) & 0xFFFU;
       // Average all wheel speeds, convert from 0.1 km/h to m/s
       float speed_kph = (speed_fl + speed_fr + speed_rl + speed_rr) / 4.0f * 0.1f;
-      vehicle_moving = speed_kph > 0.5f;
+      vehicle_moving = speed_kph != 0;
       UPDATE_VEHICLE_SPEED(speed_kph * KPH_TO_MS);
     }
 
@@ -59,8 +59,8 @@ static void byd_rx_hook(const CANPacket_t *msg) {
     // AcceleratorPedal: byte 0, factor 0.01
     // BrakePedal: byte 1, factor 0.01
     if (msg->addr == BYD_PEDAL) {
-      gas_pressed = msg->data[0] > 3U;    // > 3% threshold
-      brake_pressed = msg->data[1] > 3U;  // > 3% threshold
+      gas_pressed = msg->data[0] > 0U;
+      brake_pressed = msg->data[1] > 0U;
     }
   }
 
@@ -116,11 +116,11 @@ static safety_config byd_init(uint16_t param) {
 
   static RxCheck byd_rx_checks[] = {
     // Steering angle sensor (main bus, 50Hz)
-    {.msg = {{BYD_STEERING_TORQUE, BYD_MAIN, 8, 50U, .ignore_quality_flag = true}, { 0 }, { 0 }}},
+    {.msg = {{BYD_STEERING_TORQUE, BYD_MAIN, 8, 50U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
     // Wheel speeds (main bus, 50Hz)
-    {.msg = {{BYD_WHEEL_SPEED, BYD_MAIN, 8, 50U, .ignore_quality_flag = true}, { 0 }, { 0 }}},
+    {.msg = {{BYD_WHEEL_SPEED, BYD_MAIN, 8, 50U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
     // Pedal status (main bus, 50Hz)
-    {.msg = {{BYD_PEDAL, BYD_MAIN, 8, 50U, .ignore_quality_flag = true}, { 0 }, { 0 }}},
+    {.msg = {{BYD_PEDAL, BYD_MAIN, 8, 50U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
     // ACC HUD (camera bus, 10Hz)
     {.msg = {{BYD_ACC_HUD, BYD_CAM, 8, 10U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
   };

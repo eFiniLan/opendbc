@@ -27,10 +27,10 @@ class CarState(CarStateBase):
     # @todo
     ret.espDisabled = False
 
-    ret.gasPressed = cp.vl["PEDAL"]['AcceleratorPedal'] >= 0.01
+    ret.gasPressed = cp.vl["PEDAL"]['AcceleratorPedal'] > 0
 
     ret.brake = cp.vl["PEDAL"]['BrakePedal']
-    ret.brakePressed = ret.brake > 0.01
+    ret.brakePressed = ret.brake > 0
 
     ret.gearShifter = GEAR_MAP.get(int(cp.vl["PEDAL"]["Gear"]), GearShifter.unknown)
 
@@ -38,7 +38,6 @@ class CarState(CarStateBase):
     ret.rightBlinker = bool(cp.vl["STALKS"]["TURN_SIGNAL_SWITCH"] in (4, 5))
 
     ret.seatbeltUnlatched = cp.vl["METER_CLUSTER"]['SEATBELT_DRIVER'] == 0
-    ret.standstill = ret.vEgoRaw < 0.01
 
     ret.steeringAngleDeg = cp.vl["STEERING_TORQUE"]['ANGLE']
     ret.steeringPressed = cp.vl["STEER_MODULE"]['STEERING_RATE'] > 6.
@@ -47,7 +46,7 @@ class CarState(CarStateBase):
     ret.steerFaultPermanent = False
     ret.steerFaultTemporary = cp.vl["STEERING_TORQUE"]["TORQUE_TEMP_FAILED"] == 1
 
-    # vEgo, vEgoRaw
+    # vEgo, vEgoRaw - must be before standstill check
     self.parse_wheel_speeds(
       ret,
       cp.vl["WHEEL_SPEED"]['WHEELSPEED_FL'],
@@ -55,6 +54,7 @@ class CarState(CarStateBase):
       cp.vl["WHEEL_SPEED"]['WHEELSPEED_RL'],
       cp.vl["WHEEL_SPEED"]['WHEELSPEED_RR'],
     )
+    ret.standstill = ret.vEgoRaw < 0.01
 
     ret.parkingBrake = cp.vl["EPB_NG"]["EPB_STATUS"] != 1
 

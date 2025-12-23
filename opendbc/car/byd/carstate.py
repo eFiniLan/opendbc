@@ -86,7 +86,10 @@ class CarState(CarStateBase):
 
   @staticmethod
   def get_can_parsers(CP):
+    cam_messages = [
+      ("ACC_HUD_ADAS", float('nan')),  # ignore alive check - may not always be present
+    ]
     return {
       Bus.pt: CANParser(DBC[CP.carFingerprint][Bus.pt], [], 0),
-      Bus.cam: CANParser(DBC[CP.carFingerprint][Bus.pt], [], 2),
+      Bus.cam: CANParser(DBC[CP.carFingerprint][Bus.pt], cam_messages, 2),
     }

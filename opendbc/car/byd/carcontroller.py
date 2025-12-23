@@ -26,16 +26,17 @@ class CarController(CarControllerBase):
     lkas_prepare = lat_active and not self.lat_active_last
 
     new_actuators = actuators.as_builder()
-    if self.CP.steerControlType == SteerControlType.angle:
-      if self.frame % 2 == 0:
-        apply_angle = apply_std_steer_angle_limits(actuators.steeringAngleDeg, self.apply_angle_last, CS.out.vEgoRaw,
-                                                  CS.out.steeringAngleDeg, CC.latActive, CarControllerParams.ANGLE_LIMITS)
-
-        can_sends.append(create_steer_command(self.packer, apply_angle, lat_active, lkas_prepare))
-
-        self.apply_angle_last = apply_angle
-
-      new_actuators.steeringAngleDeg = self.apply_angle_last
+    # Pure forwarding mode - no sending
+    # if self.CP.steerControlType == SteerControlType.angle:
+    #   if self.frame % 2 == 0:
+    #     apply_angle = apply_std_steer_angle_limits(actuators.steeringAngleDeg, self.apply_angle_last, CS.out.vEgoRaw,
+    #                                               CS.out.steeringAngleDeg, CC.latActive, CarControllerParams.ANGLE_LIMITS)
+    #
+    #     can_sends.append(create_steer_command(self.packer, apply_angle, lat_active, lkas_prepare))
+    #
+    #     self.apply_angle_last = apply_angle
+    #
+    #   new_actuators.steeringAngleDeg = self.apply_angle_last
 
     self.lat_active_last = lat_active
     self.frame += 1

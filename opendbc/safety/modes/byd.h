@@ -110,9 +110,8 @@ static bool byd_tx_hook(const CANPacket_t *msg) {
 static safety_config byd_init(uint16_t param) {
   SAFETY_UNUSED(param);
 
-  static const CanMsg BYD_TX_MSGS[] = {
-    {BYD_LKAS, BYD_MAIN, 8, .check_relay = true},
-  };
+  // MVP: Empty TX_MSGS for pure passthrough testing (forward everything, send nothing)
+  static const CanMsg BYD_TX_MSGS[] = {};
 
   static RxCheck byd_rx_checks[] = {
     // Steering angle sensor (main bus, 50Hz)

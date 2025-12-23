@@ -49,24 +49,6 @@ FW_QUERY_CONFIG = FwQueryConfig(
       [StdQueries.MANUFACTURER_SOFTWARE_VERSION_REQUEST],
       [StdQueries.MANUFACTURER_SOFTWARE_VERSION_RESPONSE],
       bus=0,
-      logging=True,
-    ),
-    Request(
-      [StdQueries.TESTER_PRESENT_REQUEST, StdQueries.UDS_VERSION_REQUEST],
-      [StdQueries.TESTER_PRESENT_RESPONSE, StdQueries.UDS_VERSION_RESPONSE],
-      bus=0,
-    ),
-    Request(
-      [StdQueries.TESTER_PRESENT_REQUEST, StdQueries.SUPPLIER_SOFTWARE_VERSION_REQUEST],
-      [StdQueries.TESTER_PRESENT_RESPONSE, StdQueries.SUPPLIER_SOFTWARE_VERSION_RESPONSE],
-      bus=0,
-      logging=True,
-    ),
-    Request(
-      [StdQueries.TESTER_PRESENT_REQUEST, StdQueries.MANUFACTURER_ECU_HARDWARE_NUMBER_REQUEST],
-      [StdQueries.TESTER_PRESENT_RESPONSE, StdQueries.MANUFACTURER_ECU_HARDWARE_NUMBER_RESPONSE],
-      bus=0,
-      logging=True,
     ),
   ],
 )

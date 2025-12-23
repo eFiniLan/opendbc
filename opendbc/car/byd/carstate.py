@@ -15,7 +15,7 @@ class CarState(CarStateBase):
 
   def update(self, can_parsers) -> structs.CarState:
     cp = can_parsers[Bus.pt]
-    cp_cam = can_parsers[Bus.cam.pt]
+    cp_cam = can_parsers[Bus.cam]
 
     ret = structs.CarState()
 
@@ -87,7 +87,7 @@ class CarState(CarStateBase):
       ]
 
       self._btn_set_prev = btn_set
-      self._btn_res_prev = btn_set
+      self._btn_res_prev = btn_res
 
     return ret
 
@@ -95,5 +95,5 @@ class CarState(CarStateBase):
   def get_can_parsers(CP):
     return {
       Bus.pt: CANParser(DBC[CP.carFingerprint][Bus.pt], [], 0),
-      Bus.cam: CANParser(DBC[CP.carFingerprint][Bus.pt], [], 2),
+      Bus.cam: CANParser(DBC[CP.carFingerprint][Bus.cam], [], 2),
     }

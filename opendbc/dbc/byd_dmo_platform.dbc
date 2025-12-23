@@ -65,8 +65,8 @@ BO_ 482 MPC_LKAS_CMD_ANGLE: 8 XXX
  SG_ LKAS_Output : 24|16@1- (0.1,0) [0|255] "" XXX
  SG_ SET_ME_FF : 47|8@0+ (1,0) [0|255] "" XXX
  SG_ SET_ME_F : 48|4@1+ (1,0) [0|15] "" XXX
- SG_ COUNTER_LK : 52|4@1+ (1,0) [0|15] "" XXX
- SG_ CHECKSUM_LK : 56|8@1+ (1,0) [0|255] "" XXX
+ SG_ COUNTER : 52|4@1+ (1,0) [0|15] "" XXX
+ SG_ CHECKSUM : 56|8@1+ (1,0) [0|255] "" XXX
 
 BO_ 813 ACC_HUD_ADAS: 8 XXX
  SG_ SET_SPEED : 0|9@1+ (0.5,0) [0|255.5] "" XXX

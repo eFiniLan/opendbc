@@ -6,7 +6,7 @@ def create_steer_command(packer, steer_angle, steer_req, lkas_prepare=False):
     "LKAS_ACTIVE": 1 if steer_req else 0,
     "SET_ME_3": 3,
     "LKAS_Output": steer_angle if steer_req else 0,
-    "SET_ME_FF": 0xff,
+    "SET_ME_FF": 100, # looks like it's mostly 100
     "SET_ME_F": 0xf,
   }
 

@@ -1,17 +1,14 @@
-from typing import List, Union
-
-def create_steer_command(packer, steer_angle, steer_req):
-
+def create_steer_command(packer, steer_angle, steer_req, lkas_prepare=False):
   values = {
     "JerkUpperLimit": 300,
     "JerkLowerLimit": -300,
-    "LKASPrepare": 0,
+    "LKASPrepare": 1 if lkas_prepare else 0,
     "LKAS_ACTIVE": 1 if steer_req else 0,
     "SET_ME_3": 3,
     "LKAS_Output": steer_angle if steer_req else 0,
     "SET_ME_FF": 0xff,
     "SET_ME_F": 0xf,
-    }
+  }
 
   return packer.make_can_msg("MPC_LKAS_CMD_ANGLE", 0, values)
 

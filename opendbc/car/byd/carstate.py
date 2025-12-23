@@ -19,30 +19,24 @@ class CarState(CarStateBase):
 
     ret = structs.CarState()
 
-    # * `doorOpen`
     ret.doorOpen = any([cp.vl["METER_CLUSTER"]['FRONT_LEFT_DOOR'],
                        cp.vl["METER_CLUSTER"]['FRONT_RIGHT_DOOR'],
                        cp.vl["METER_CLUSTER"]['REAR_LEFT_DOOR'],
                        cp.vl["METER_CLUSTER"]['REAR_RIGHT_DOOR']])
 
-    # * `espDisabled`
     # @todo
     ret.espDisabled = False
 
-    # * `gasPressed`
     ret.gasPressed = cp.vl["PEDAL"]['AcceleratorPedal'] >= 0.01
 
     ret.brake = cp.vl["PEDAL"]['BrakePedal']
     ret.brakePressed = ret.brake > 0.01
 
-    # * `gearShifter`
     ret.gearShifter = GEAR_MAP.get(int(cp.vl["PEDAL"]["Gear"]), GearShifter.unknown)
 
-    # * `leftBlinker` / `rightBlinker`
     ret.leftBlinker = bool(cp.vl["STALKS"]["TURN_SIGNAL_SWITCH"] in (2, 3))
     ret.rightBlinker = bool(cp.vl["STALKS"]["TURN_SIGNAL_SWITCH"] in (4, 5))
 
-    # * `seatbeltUnlatched`
     ret.seatbeltUnlatched = cp.vl["METER_CLUSTER"]['SEATBELT_DRIVER'] == 0
     ret.standstill = ret.vEgoRaw < 0.01
 
@@ -51,8 +45,7 @@ class CarState(CarStateBase):
     ret.steeringTorque = cp.vl["STEERING_TORQUE"]['MAIN_TORQUE']
     # @todo
     ret.steerFaultPermanent = False
-    # @todo
-    ret.steerFaultTemporary = False
+    ret.steerFaultTemporary = cp.vl["STEERING_TORQUE"]["TORQUE_TEMP_FAILED"] == 1
 
     # vEgo, vEgoRaw
     self.parse_wheel_speeds(
@@ -71,7 +64,7 @@ class CarState(CarStateBase):
       ret.cruiseState.speed = cp_cam.vl["ACC_HUD_ADAS"]["SET_SPEED"]
       ret.cruiseState.enabled = cp_cam.vl["ACC_HUD_ADAS"]["CRUISE_STATE"] == 3
 
-      # rick
+      # rick:
       # seen this when ACC enabled
       btn_set = cp.vl["PCM_BUTTONS"]["SET_BTN"]
       # unseen

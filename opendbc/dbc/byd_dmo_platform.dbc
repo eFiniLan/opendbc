@@ -2,8 +2,8 @@ BO_ 287 STEER_MODULE: 5 XXX
  SG_ STEER_ANGLE : 0|16@1- (0.1,0) [-450|450] "" XXX
  SG_ STEERING_RATE : 16|8@1+ (4,0) [0|1020] "" XXX
  SG_ PAYLOAD : 24|8@1+ (1,0) [0|255] "" XXX
- SG_ COUNTER : 32|4@1+ (1,0) [0|255] "" XXX
- SG_ CHECKSUM_S : 36|4@1+ (1,0) [0|15] "" XXX
+ SG_ COUNTER_SM : 32|4@1+ (1,0) [0|255] "" XXX
+ SG_ CHECKSUM_SM : 36|4@1+ (1,0) [0|15] "" XXX
 
 BO_ 307 STALKS: 8 XXX
  SG_ FrontFogLight : 0|1@0+ (1,0) [0|1] "" XXX
@@ -26,16 +26,16 @@ BO_ 496 WHEEL_SPEED: 8 XXX
  SG_ WHEELSPEED_FR : 16|12@1+ (0.1,0) [0|281.4625] "km/h" XXX
  SG_ WHEELSPEED_RL : 28|12@1+ (0.1,0) [0|281.4625] "km/h" XXX
  SG_ WHEELSPEED_RR : 40|12@1+ (0.1,0) [0|281.4625] "km/h" XXX
- SG_ COUNTER : 55|4@0+ (1,0) [0|15] "" XXX
- SG_ CHECKSUM : 63|8@0+ (1,0) [0|255] "" XXX
+ SG_ COUNTER_WS : 55|4@0+ (1,0) [0|15] "" XXX
+ SG_ CHECKSUM_WS : 63|8@0+ (1,0) [0|255] "" XXX
 
 BO_ 508 STEERING_TORQUE: 8 XXX
  SG_ MAIN_TORQUE : 0|16@1- (0.1,0) [0|65535] "" XXX
  SG_ ANGLE : 16|16@1- (0.1,0) [0|255] "" XXX
  SG_ HANDS_ON_WHEEL : 45|1@1+ (1,0) [0|255] "" XXX
  SG_ TORQUE_TEMP_FAILED : 46|2@1+ (1,0) [0|3] "" XXX
- SG_ COUNTER : 55|4@0+ (1,0) [0|15] "" XXX
- SG_ CHECKSUM : 63|8@0+ (1,0) [0|255] "" XXX
+ SG_ COUNTER_ST : 55|4@0+ (1,0) [0|15] "" XXX
+ SG_ CHECKSUM_ST : 63|8@0+ (1,0) [0|255] "" XXX
 
 BO_ 660 METER_CLUSTER: 8 XXX
  SG_ FRONT_RIGHT_DOOR : 1|1@1+ (1,0) [0|511] "" XXX
@@ -44,8 +44,8 @@ BO_ 660 METER_CLUSTER: 8 XXX
  SG_ REAR_RIGHT_DOOR : 7|1@0+ (1,0) [0|1] "" XXX
  SG_ SEATBELT_DRIVER : 17|1@0+ (1,0) [0|1] "" XXX
  SG_ BRAKE_PRESSED_ALT : 26|1@1+ (1,0) [0|1] "" XXX
- SG_ COUNTER : 48|4@1+ (1,0) [0|255] "" XXX
- SG_ CHECKSUM : 56|8@1+ (1,0) [0|255] "" XXX
+ SG_ COUNTER_MC : 48|4@1+ (1,0) [0|255] "" XXX
+ SG_ CHECKSUM_MC : 56|8@1+ (1,0) [0|255] "" XXX
 
 BO_ 834 PEDAL: 8 XXX
  SG_ AcceleratorPedal : 0|8@1+ (0.01,0) [0|2.55] "" XXX
@@ -65,8 +65,8 @@ BO_ 482 MPC_LKAS_CMD_ANGLE: 8 XXX
  SG_ LKAS_Output : 24|16@1- (0.1,0) [0|255] "" XXX
  SG_ SET_ME_FF : 47|8@0+ (1,0) [0|255] "" XXX
  SG_ SET_ME_F : 48|4@1+ (1,0) [0|15] "" XXX
- SG_ COUNTER : 52|4@1+ (1,0) [0|15] "" XXX
- SG_ CHECKSUM : 56|8@1+ (1,0) [0|255] "" XXX
+ SG_ COUNTER_LK : 52|4@1+ (1,0) [0|15] "" XXX
+ SG_ CHECKSUM_LK : 56|8@1+ (1,0) [0|255] "" XXX
 
 BO_ 813 ACC_HUD_ADAS: 8 XXX
  SG_ SET_SPEED : 0|9@1+ (0.5,0) [0|255.5] "" XXX
@@ -86,9 +86,9 @@ BO_ 813 ACC_HUD_ADAS: 8 XXX
  SG_ ERROR : 32|4@1+ (1,0) [0|15] "" XXX
  SG_ SET_ME_XFF : 36|8@1+ (1,0) [0|4095] "" XXX
  SG_ CRUISE_STATE : 44|4@1+ (1,0) [0|15] "" XXX
- SG_ COUNTER : 48|4@1+ (1,0) [0|15] "" XXX
+ SG_ COUNTER_CAM : 48|4@1+ (1,0) [0|15] "" XXX
  SG_ SET_ME_XF : 55|4@0+ (1,0) [0|15] "" XXX
- SG_ CHECKSUM : 56|8@1+ (1,0) [0|255] "" XXX
+ SG_ CHECKSUM_CAM : 56|8@1+ (1,0) [0|255] "" XXX
 
 BO_ 944 PCM_BUTTONS: 8 XXX
  SG_ DISTANCE_BTN : 0|3@1+ (1,0) [0|7] "" XXX
@@ -105,14 +105,14 @@ BO_ 944 PCM_BUTTONS: 8 XXX
  SG_ SET_ME_0_2 : 17|2@1+ (1,0) [0|1] "" XXX
  SG_ ACC_SWITCH : 19|1@1+ (1,0) [0|1] "" XXX
  SG_ SET_ME_XFFFFF : 20|32@1+ (1,0) [0|68719476735] "" XXX
- SG_ COUNTER : 52|4@1+ (1,0) [0|15] "" XXX
- SG_ CHECKSUM : 56|8@1+ (1,0) [0|255] "" XXX
+ SG_ COUNTER_PB : 52|4@1+ (1,0) [0|15] "" XXX
+ SG_ CHECKSUM_PB : 56|8@1+ (1,0) [0|255] "" XXX
 
 BO_ 536 EPB_NG: 8 XXX
  SG_ EPB_ACTIVE : 0|2@1+ (1,0) [0|3] "" XXX
  SG_ EPB_STATUS : 9|3@1+ (1,0) [0|7] "" XXX
- SG_ COUNTER : 48|4@1+ (1,0) [0|15] "" XXX
- SG_ CHECKSUM : 56|8@1+ (1,0) [0|255] "" XXX
+ SG_ COUNTER_EB : 48|4@1+ (1,0) [0|15] "" XXX
+ SG_ CHECKSUM_EB : 56|8@1+ (1,0) [0|255] "" XXX
 
 VAL_ 307 TURN_SIGNAL_SWITCH 0 "Invalid" 1 "OFFGear" 2 "LeftSteeringShortLift" 3 "LeftSteeringLongLift" 4 "RightSteeringShortLift" 5 "RightSteeringLongLift" 7 "Unavaliable";
 VAL_ 536 EPB_ACTIVE 0 "NotActive" 1 "Release" 2 "Apply" 3 "Reserved";

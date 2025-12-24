@@ -82,8 +82,6 @@ class CarState(CarStateBase):
       self._btn_set_prev = btn_set
       self._btn_res_prev = btn_res
 
-    ret.blockPcmEnable = False
-
     return ret
 
   @staticmethod

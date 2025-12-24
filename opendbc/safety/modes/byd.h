@@ -115,8 +115,12 @@ static safety_config byd_init(uint16_t param) {
     {BYD_LKAS, BYD_MAIN, 8, .check_relay = true},
   };
 
-  // Disable all rx checks for testing
-  static RxCheck byd_rx_checks[] = {};
+  static RxCheck byd_rx_checks[] = {
+    {.msg = {{BYD_STEERING_TORQUE, BYD_MAIN, 8, 50U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
+    {.msg = {{BYD_WHEEL_SPEED, BYD_MAIN, 8, 50U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
+    {.msg = {{BYD_PEDAL, BYD_MAIN, 8, 50U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
+    {.msg = {{BYD_ACC_HUD, BYD_CAM, 8, 10U, .ignore_checksum = true, .ignore_counter = true, .ignore_quality_flag = true}, { 0 }, { 0 }}},
+  };
 
   return BUILD_SAFETY_CFG(byd_rx_checks, BYD_TX_MSGS);
 }

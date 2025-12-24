@@ -23,7 +23,7 @@ class CarInterface(CarInterfaceBase):
 
     ret.steerControlType = structs.CarParams.SteerControlType.angle
     ret.radarUnavailable = True
-    ret.pcmCruise = True
+    ret.pcmCruise = False
 
     ret.alphaLongitudinalAvailable = False
 

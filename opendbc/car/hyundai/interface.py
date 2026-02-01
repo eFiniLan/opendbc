@@ -55,11 +55,12 @@ class CarInterface(CarInterfaceBase):
         if 0x110 in fingerprint[CAN.CAM]:
           ret.flags |= HyundaiFlags.CANFD_LKA_STEERING_ALT.value
       else:
-        # no LKA steering
-        if 0x1cf not in fingerprint[CAN.ECAN]:
-          ret.flags |= HyundaiFlags.CANFD_ALT_BUTTONS.value
         if not ret.flags & HyundaiFlags.RADAR_SCC:
           ret.flags |= HyundaiFlags.CANFD_CAMERA_SCC.value
+
+      # Some HDA2 do not have 0x1cf
+      if 0x1cf not in fingerprint[CAN.ECAN]:
+        ret.flags |= HyundaiFlags.CANFD_ALT_BUTTONS.value
 
       # Some LKA steering cars have alternative messages for gear checks
       # ICE cars do not have 0x130; GEARS message on 0x40 or 0x70 instead
@@ -83,6 +84,18 @@ class CarInterface(CarInterfaceBase):
       if ret.flags & HyundaiFlags.CANFD_CAMERA_SCC:
         ret.safetyConfigs[-1].safetyParam |= HyundaiSafetyFlags.CAMERA_SCC.value
 
+      # print(f"cam_can: {cam_can}") // 2
+      # print(f"lka_steering: {lka_steering}") // False
+      # print(f"CAN.ECAN: {CAN.ECAN}") // 0
+      # print(f"enableBsm: {ret.enableBsm}") // True
+
+      # ret.flags = 24578
+      # RADAR_SCC (16384)
+      # CANFD (8192)
+      # CANFD_ALT_BUTTONS (2)
+
+      # ret.safetyConfigs[-1].safetyParam = 32
+      # CANFD_ALT_BUTTONS (32)
     else:
       # Shared configuration for non CAN-FD cars
       ret.alphaLongitudinalAvailable = candidate not in UNSUPPORTED_LONGITUDINAL_CAR
